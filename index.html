@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        background-image: linear-gradient(#00b4d8, #90e0ef);
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    h1{
+        text-align: center;
+    }
+    div{
+        width: max(470px, 60%);
+        margin-inline: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    img{
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        height: 200px;
+    }
+    figure{
+        position: relative;
+        transition: .2s all ease-out;
+        margin: 1rem;
+        max-width: 20%;
+    }
+    figure p{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: .5rem;
+        border-radius: 4px;
+        margin: 0;
+        font-size: 22px;
+    }
+</style>
+<body>
+    <h1>Manten presionada una de las teclas que se muestra</h1>
+
+    <audio id="amimeencanta"> <source src="./amimeencanta.mp3"></audio>
+    <audio id="juancarlos"> <source src="./juancarlos.mp3"></audio>
+    <audio id="ohno"> <source src="./ohno.mp3"></audio>
+    <audio id="potacsio"> <source src="./potacsio.mp3"></audio>
+    <div>
+        <figure class="amimeencantaClass">
+            <p>A</p>
+            <img src="./amimeencanta.jpeg" alt="a mi me encanta">
+        </figure>
+        <figure class="juancarlosClass">
+            <p>S</p>
+            <img src="./juancarlos.webp" alt="juan carlos">
+        </figure>
+        <figure class="ohnoClass">
+            <p>D</p>
+            <img src="./ohno.jpeg" alt="oh no">
+        </figure>
+        <figure class="potacsioClass">
+            <p>F</p>
+            <img src="./potacsio.jpeg" alt="potacsio">
+        </figure>
+
+    </div>
+    <script>
+        const meEncanta = document.getElementById('amimeencanta');
+        const juanCarlos = document.getElementById('juancarlos');
+        const ohNo = document.getElementById('ohno');
+        const potacsio = document.getElementById('potacsio');
+        const meEncantaClass = document.querySelector('.amimeencantaClass');
+        const juanCarlosClass = document.querySelector('.juancarlosClass');
+        const ohNoClass = document.querySelector('.ohnoClass');
+        const potacsioClass = document.querySelector('.potacsioClass');
+
+
+
+        const logKey = (e) => {
+            if(e.keyCode === 65){
+                meEncantaClass.style.boxShadow = '0px 0px 5px #0077b6';
+                meEncantaClass.style.transform = 'scale(.95)'
+                return meEncanta.play();
+            }else if(e.keyCode === 83){
+                juanCarlosClass.style.boxShadow = '0px 0px 5px #0077b6';
+                juanCarlosClass.style.transform = 'scale(.95)'
+                return juanCarlos.play();
+            }else if(e.keyCode === 68){
+                ohNoClass.style.boxShadow = '0px 0px 5px #0077b6';
+                ohNoClass.style.transform = 'scale(.95)'
+                return ohNo.play();
+            }else if(e.keyCode === 70){
+                potacsioClass.style.boxShadow = '0px 0px 5px #0077b6';
+                potacsioClass.style.transform = 'scale(.95)'
+                return potacsio.play();
+            }else{
+                alert('Presiona cualquiera de las teclas que se encuentra en la pantalla')
+            }
+        }
+        const unlogKey = (e) => {
+            if(e.keyCode === 65){
+                meEncantaClass.style.boxShadow = 'none'
+                meEncantaClass.style.transform = 'scale(1)'
+                meEncanta.pause();
+                meEncanta.currentTime = 0;
+            }else if(e.keyCode === 83){
+                juanCarlosClass.style.boxShadow = 'none'
+                juanCarlosClass.style.transform = 'scale(1)'
+                juanCarlos.pause();
+                juanCarlos.currentTime = 0;
+            }else if(e.keyCode === 68){
+                ohNoClass.style.boxShadow = 'none'
+                ohNoClass.style.transform = 'scale(1)'
+                ohNo.pause();
+                ohNo.currentTime = 0;
+            }else if(e.keyCode === 70){
+                potacsioClass.style.boxShadow = 'none'
+                potacsioClass.style.transform = 'scale(1)'
+                potacsio.pause();
+                potacsio.currentTime = 0;
+            }else{
+                alert('Presiona cualquiera de las teclas que se encuentra en la pantalla')
+            }
+        }
+       document.addEventListener('keydown', logKey);
+       document.addEventListener('keyup', unlogKey);
+
+    </script>
+</body>
+</html>
