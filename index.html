@@ -23,11 +23,12 @@
         text-align: center;
     }
     div{
-        width: max(470px, 60%);
+        width: min(1000px, 90%);
         margin-inline: auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
     }
     img{
         width: 100%;
@@ -39,7 +40,7 @@
         position: relative;
         transition: .2s all ease-out;
         margin: 1rem;
-        max-width: 20%;
+        width: 210px;
     }
     figure p{
         position: absolute;
@@ -51,92 +52,111 @@
         border-radius: 4px;
         margin: 0;
         font-size: 22px;
+        z-index: 1;
     }
 </style>
 <body>
     <h1>Manten presionada una de las teclas que se muestra</h1>
-
-    <audio id="amimeencanta"> <source src="./amimeencanta.mp3"></audio>
-    <audio id="juancarlos"> <source src="./juancarlos.mp3"></audio>
-    <audio id="ohno"> <source src="./ohno.mp3"></audio>
-    <audio id="potacsio"> <source src="./potacsio.mp3"></audio>
-    <div>
-        <figure class="amimeencantaClass">
-            <p>A</p>
-            <img src="./amimeencanta.jpeg" alt="a mi me encanta">
-        </figure>
-        <figure class="juancarlosClass">
-            <p>S</p>
-            <img src="./juancarlos.webp" alt="juan carlos">
-        </figure>
-        <figure class="ohnoClass">
-            <p>D</p>
-            <img src="./ohno.jpeg" alt="oh no">
-        </figure>
-        <figure class="potacsioClass">
-            <p>F</p>
-            <img src="./potacsio.jpeg" alt="potacsio">
-        </figure>
-
+    <div class="meme_container">
     </div>
     <script>
-        const meEncanta = document.getElementById('amimeencanta');
-        const juanCarlos = document.getElementById('juancarlos');
-        const ohNo = document.getElementById('ohno');
-        const potacsio = document.getElementById('potacsio');
-        const meEncantaClass = document.querySelector('.amimeencantaClass');
-        const juanCarlosClass = document.querySelector('.juancarlosClass');
-        const ohNoClass = document.querySelector('.ohnoClass');
-        const potacsioClass = document.querySelector('.potacsioClass');
+        const memeContainer = document.querySelector('.meme_container');
 
 
-
-        const logKey = (e) => {
-            if(e.keyCode === 65){
-                meEncantaClass.style.boxShadow = '0px 0px 5px #0077b6';
-                meEncantaClass.style.transform = 'scale(.95)'
-                return meEncanta.play();
-            }else if(e.keyCode === 83){
-                juanCarlosClass.style.boxShadow = '0px 0px 5px #0077b6';
-                juanCarlosClass.style.transform = 'scale(.95)'
-                return juanCarlos.play();
-            }else if(e.keyCode === 68){
-                ohNoClass.style.boxShadow = '0px 0px 5px #0077b6';
-                ohNoClass.style.transform = 'scale(.95)'
-                return ohNo.play();
-            }else if(e.keyCode === 70){
-                potacsioClass.style.boxShadow = '0px 0px 5px #0077b6';
-                potacsioClass.style.transform = 'scale(.95)'
-                return potacsio.play();
-            }else{
-                alert('Presiona cualquiera de las teclas que se encuentra en la pantalla')
+        const memes = [
+            {
+                id: 'amimenecanta',
+                keyCode: 65,
+                tecla: 'A',
+                clase: 'aMiMeEncantaClass',
+                audio: './audios/amimeencanta.mp3',
+                img: './img/amimeencanta.jpeg'
+            },
+            {
+                id: 'juancarlos',
+                keyCode: 83,
+                tecla: 'S',
+                clase: 'JuanCarlosClass',
+                audio: './audios/juancarlos.mp3',
+                img: './img/juancarlos.webp'
+            },
+            {
+                id: 'ohno',
+                keyCode: 68,
+                tecla: 'D',
+                clase: 'ohNoClass',
+                audio: './audios/ohno.mp3',
+                img: './img/ohno.jpeg'
+            },
+            {
+                id: 'potacsio',
+                keyCode: 70,
+                tecla: 'F',
+                clase: 'potacsioClass',
+                audio: './audios/potacsio.mp3',
+                img: './img/potacsio.jpeg'
             }
+        ];
+
+        memes.forEach(meme => {
+            const figure = document.createElement('figure');
+            figure.classList.add(`${meme.clase}`)
+            const paragraph = document.createElement('p');
+            paragraph.innerHTML = meme.tecla
+            const image = document.createElement('img');
+            image.src = meme.img
+            const audio = document.createElement('audio')
+            const source = document.createElement('source')
+            audio.appendChild(source)
+            source.src = meme.audio
+            memeContainer.appendChild(figure)
+            figure.appendChild(paragraph)
+            figure.appendChild(image)
+            figure.appendChild(audio) 
+        })
+
+        const logKey = (e, item, container) => {
+            figure = memeContainer.querySelectorAll('figure')
+            container = figure
+            item = memes
+            item.map(meme => {
+                if(e.keyCode === meme.keyCode){
+                    container.forEach(figura => {
+                        if(figura.classList.value === meme.clase){
+                            figura.children[2].play();
+                            figura.children[1].style.filter = 'grayscale(.8)'
+                            figura.style.transform = 'scale(1.1)'
+                        }
+                    })
+                }
+            })
         }
-        const unlogKey = (e) => {
-            if(e.keyCode === 65){
-                meEncantaClass.style.boxShadow = 'none'
-                meEncantaClass.style.transform = 'scale(1)'
-                meEncanta.pause();
-                meEncanta.currentTime = 0;
-            }else if(e.keyCode === 83){
-                juanCarlosClass.style.boxShadow = 'none'
-                juanCarlosClass.style.transform = 'scale(1)'
-                juanCarlos.pause();
-                juanCarlos.currentTime = 0;
-            }else if(e.keyCode === 68){
-                ohNoClass.style.boxShadow = 'none'
-                ohNoClass.style.transform = 'scale(1)'
-                ohNo.pause();
-                ohNo.currentTime = 0;
-            }else if(e.keyCode === 70){
-                potacsioClass.style.boxShadow = 'none'
-                potacsioClass.style.transform = 'scale(1)'
-                potacsio.pause();
-                potacsio.currentTime = 0;
-            }else{
-                alert('Presiona cualquiera de las teclas que se encuentra en la pantalla')
-            }
+
+        const unlogKey = (e, item, container) => {
+            figure = memeContainer.querySelectorAll('figure')
+            container = figure
+            item = memes
+            item.map(meme => {
+                if(e.keyCode === meme.keyCode){
+                    container.forEach(figura => {
+                        if(figura.classList.value === meme.clase){
+                            figura.children[2].pause();
+                            figura.children[2].currentTime = 0;
+                            figura.children[1].style.filter = 'grayscale(0)'
+                            figura.style.transform = 'scale(1)'
+
+                        }
+                    })
+                }
+            })
         }
+
+
+        
+    
+
+
+
        document.addEventListener('keydown', logKey);
        document.addEventListener('keyup', unlogKey);
 
