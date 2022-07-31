@@ -26,7 +26,7 @@
         width: min(1000px, 90%);
         margin-inline: auto;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         flex-wrap: wrap;
     }
@@ -41,6 +41,10 @@
         transition: .2s all ease-out;
         margin: 1rem;
         width: 210px;
+    }
+    figure img{
+        border-radius: 10px;
+
     }
     figure p{
         position: absolute;
@@ -95,6 +99,22 @@
                 clase: 'potacsioClass',
                 audio: './audios/potacsio.mp3',
                 img: './img/potacsio.jpeg'
+            },
+            {
+                id:'no_no',
+                keyCode: 71,
+                tecla: 'G',
+                clase: 'no_noClass',
+                audio: './audios/no_no.mp3',
+                img: './img/no_no.jpeg'
+            },
+            {
+                id: 'meHeEquivocado',
+                keyCode: 72,
+                tecla: 'H',
+                clase: 'meHeEquiocadoClass',
+                audio: './audios/meheequivocado.mp3',
+                img: './img/meheequivocado.jpeg'
             }
         ];
 
